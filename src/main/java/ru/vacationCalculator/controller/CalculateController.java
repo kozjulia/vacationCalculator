@@ -18,10 +18,14 @@ public class CalculateController {
     // эндпойнт в задании с опечаткой, на всякий случай 2 варианта рассматриваю
     public Double calculate(@RequestParam Double averageSalary, @RequestParam Integer vacationDays) {
         if (averageSalary < 0) {
-            throw new ValidationException("Ошибка! Твоя средняя зарплата за 12 месяцев должна быть положительной.");
+            String message = "Ошибка! Твоя средняя зарплата за 12 месяцев должна быть положительной.";
+            log.warn(message);
+            throw new ValidationException(message);
         }
         if (vacationDays < 0) {
-            throw new ValidationException("Ошибка! Количество дней отпуска должно быть положительным.");
+            String message = "Ошибка! Количество дней отпуска должно быть положительным.";
+            log.warn(message);
+            throw new ValidationException(message);
         }
         log.debug("Твоя средняя зарплата за 12 месяцев: {}, количество дней отпуска {}", averageSalary, vacationDays);
         Double result = calculateService.calculate(averageSalary, vacationDays);
